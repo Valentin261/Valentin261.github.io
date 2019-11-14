@@ -156,6 +156,16 @@ $.ajax({
 });
 })		
 		})
+
+
+
+		function openMessAndGetOfFormDataToMaile(){
+			var name = document.getElementById("Nname").value;
+			var mail = document.getElementById("Nemale").value;
+			var telephone = document.getElementById("Ntelephone").value;
+			window.open('mailto:2614462@mail.ru?subject=Дачный участок 19,8 соток&body=Меня зовут: '+name +", "+'Мой телефон: '+telephone
+				 +', Почта для связи: '+mail);
+		}
 	</script>		
 	
 	
@@ -208,13 +218,13 @@ $.ajax({
 							
 							<input type="hidden" name="Название формы" value="">	
 							
-							<div class="field"><div class="field_title">Введите имя</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите имя" placeholder="Введите имя"></div></div>
+							<div class="field"><div class="field_title">Введите имя</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" id="Nname" name="Введите имя" placeholder="Введите имя"></div></div>
 							
-							<div class="field"><div class="field_title">Введите E-mail</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите E-mail" placeholder="Введите E-mail"></div></div>
+							<div class="field"><div class="field_title">Введите E-mail</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" id="Nemale" name="Введите E-mail" placeholder="Введите E-mail"></div></div>
 							
-							<div class="field"><div class="field_title">Введите номер телефона</div><div class="field_description">Владелец участка Вам перезвонит</div><div class="field_input"><input type="text" required="required" name="Введите номер телефона" placeholder="Введите номер телефона"></div></div>
+							<div class="field"><div class="field_title">Введите номер телефона</div><div class="field_description">Владелец участка Вам перезвонит</div><div class="field_input"><input type="text" required="required" name="Введите номер телефона" id="Ntelephone" placeholder="Введите номер телефона"></div></div>
 							
-							<div class="field"><div class="field_input"><input type="submit" class="submit_btn surround" data-action="thanks" data-url="" data-amount="0" value="Получить скидку" style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); "></div></div>
+							<div class="field"><div class="field_input"><input type="submit" class="submit_btn surround" data-action="thanks" data-url="" data-amount="0" value="Получить скидку" style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); " onclick="openMessAndGetOfFormDataToMaile();"></div></div>
 							
 						</form>
 					</div>
@@ -852,21 +862,21 @@ $.ajax({
 			
 			
 			
-	<!-- Yandex.Metrika counter -->
-<script type="text/javascript" >
-   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+			<!-- Yandex.Metrika counter -->
+			<script type="text/javascript" >
+				(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+					m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+				(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-   ym(55934779, "init", {
-        clickmap:true,
-        trackLinks:true,
-        accurateTrackBounce:true,
-        webvisor:true
-   });
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/55934779" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter --> 	
+				ym(55934779, "init", {
+					clickmap:true,
+					trackLinks:true,
+					accurateTrackBounce:true,
+					webvisor:true
+				});
+			</script>
+			<noscript><div><img src="https://mc.yandex.ru/watch/55934779" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+			<!-- /Yandex.Metrika counter --> 	
 			
 			
 			
