@@ -1,858 +1,1364 @@
 <!DOCTYPE html>
 <html lang="ru-ru">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	
-	
-	<style>
-		
-		.rightimg  {
-			float: right; /* Выравнивание по правому краю  */ 
-			margin: 7px 0 7px 7px; /* Отступы вокруг картинки */
-		}
-	</style>
-	
-	
-	
-	<link href="css/normalize.css" rel="stylesheet" type="text/css"/>
-	<link href='https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic%7CPT+Sans+Narrow:400,700%7CRusso+One&subset=latin,cyrillic-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>		
-	
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	
-	
-	<script src="js/underscore-min.js"></script>
-	<script>window.tobiz = {"project_id":"43762","rep_id":"62300","user_id":"7","owner_email":"guilty.warriors@gmail.com","user_email":"manager1@tobiz.net","bs":true,"t":"4","w":1}</script>
-	<link rel="stylesheet" type="text/css" href="css/style-ver=1499868839.css">		
-	
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-	<script type="text/javascript" src="js/script.js?v=1499869918"></script>	
-	
-	
 
-	<meta name="description" content="" />        
-	<meta name="keywords" content="" />  
-	
-	
-	
-	<meta content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
-	<link href="css/mobile.css" rel="stylesheet">            
-	
-	<title></title>
-	
-	
+    <style>
 
-	<script type="text/javascript">
-		$(function(){
-			$('body').on('submit', 'form[action="handler.php"]', function (event) {
-				
-				//$('form[action="handler.php"]').submit(function (event) {
-					event.preventDefault();
-					
+        .rightimg {
+            float: right; /* Выравнивание по правому краю  */
+            margin: 7px 0 7px 7px; /* Отступы вокруг картинки */
+        }
+    </style>
+
+
+    <link href="css/normalize.css" rel="stylesheet" type="text/css"/>
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic%7CPT+Sans+Narrow:400,700%7CRusso+One&subset=latin,cyrillic-ext,latin-ext,cyrillic'
+          rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+
+    <script src="js/underscore-min.js"></script>
+    <script>window.tobiz = {
+        "project_id": "43762",
+        "rep_id": "62300",
+        "user_id": "7",
+        "owner_email": "guilty.warriors@gmail.com",
+        "user_email": "manager1@tobiz.net",
+        "bs": true,
+        "t": "4",
+        "w": 1
+    }</script>
+    <link rel="stylesheet" type="text/css" href="css/style-ver=1499868839.css">
+
+
+    <script type="text/javascript" src="js/script.js?v=1499869918"></script>
+
+
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+
+
+    <meta content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+    <link href="css/mobile.css" rel="stylesheet">
+
+    <title></title>
+
+
+    <script type="text/javascript">
+        $(function () {
+            $('body').on('submit', 'form[action="handler.php"]', function (event) {
+
+                //$('form[action="handler.php"]').submit(function (event) {
+                event.preventDefault();
+
 //					var check = 1;
 //					$(this).find('[""]')
 
 
+                var this_form = $(this);
+                if (!$(this).children("input[name=project_id]").length)
+                    $(this).prepend('<input type="hidden" name="project_id" value="' + window.tobiz.project_id + '">');
+                if (!$(this).children("input[name=page_id]").length)
+                    $(this).prepend('<input type="hidden" name="page_id" value="' + window.tobiz.rep_id + '">');
+                if (!$(this).children("input[name=referrer]").length)
+                    $(this).prepend('<input type="hidden" name="referrer" value="' + document.referrer + '">');
+                if (!$(this).children("input[name=user_id]").length)
+                    $(this).prepend('<input type="hidden" name="user_id" value="' + window.tobiz.user_id + '">');
 
-var this_form = $(this);
-if (!$(this).children("input[name=project_id]").length)
-	$(this).prepend('<input type="hidden" name="project_id" value="' + window.tobiz.project_id + '">');
-if (!$(this).children("input[name=page_id]").length)
-	$(this).prepend('<input type="hidden" name="page_id" value="' + window.tobiz.rep_id + '">');
-if (!$(this).children("input[name=referrer]").length)
-	$(this).prepend('<input type="hidden" name="referrer" value="' + document.referrer + '">');
-if (!$(this).children("input[name=user_id]").length)
-	$(this).prepend('<input type="hidden" name="user_id" value="' + window.tobiz.user_id + '">');
-
-if ($(this).find("[data-action]").size()){
-	console.log(123);
-	$(this).prepend('<input type="hidden" name="action" value="' + $(this).find("[data-action]").data('action') + '">');
-	$(this).prepend('<input type="hidden" name="amount" value="' + $(this).find("[data-action]").data('amount') + '">');
-	$(this).prepend('<input type="hidden" name="url" value="' + $(this).find("[data-action]").data('url') + '">');
-}else{
-	console.log('not found');
-}
-var formData = new FormData($(this)[0]);
-var this_block = $(this).closest('.section');
-$.ajax({
-	dataType: "json", 
-	type: "POST", 
-	url: "/handler.php", 
-	data: formData, 
-	async: false, 
-	cache: false, 
-	contentType: false, 
-	processData: false
-}).done(function (data) {
-	if (data.status == 'OK') {
-		alert(data.msg);
-		this_form.each(function () {
-			$(this)[0].reset();
-		})
-		$('.popup_form').hide();
-	}
-	if (data.status == 'ERROR') {
-		alert(data.msg);
-	}
-	if (data.status == 'JC') {
-		$('body').append(data.form);
-		$('#jc_form').submit();
-		this_form.each(function () {
-			$(this)[0].reset();
-		})
-	}
-	if (data.status == 'SR') {
-		$('body').append(data.form);
-		$('#sr_form').submit();
-		this_form.each(function () {
-			$(this)[0].reset();
-		})
-	}
-	if (data.status == 'GR') {
-		$('body').append(data.form);
-		$('#gr_form').submit();
-		this_form.each(function () {
-			$(this)[0].reset();
-		})
-	}
-	if (data.status == 'RK') {
-		this_form.each(function () {
-			$(this)[0].reset();
-		})
-		window.location.href = data.url;
-	}
-	if (data.status == 'redirect') {
-		this_form.each(function () {
-			$(this)[0].reset();
-		})
-		
-		
-		window.location.href = data.url;
-	}
-	if (data.status == 'thanks') {
-		this_block.find('.popup_thanks').show();				
-		this_form.each(function () {
-			$(this)[0].reset();
-		})
-		$('.popup_form').hide();
-	}
-	if (data.status == 'thanks_order_complete') {
-		this_block.find('.popup_thanks').show();				
-		this_form.each(function () {
-			$(this)[0].reset();
-		})
-		window.basket.clean();
-		window.basket.hideForm();
-		window.basket.renderForm();
-		window.basket.renderBtn();
-		window.basket.hideBtn();
-		alert('Спасибо ваш заказ успешно оформлен!');
-		$('.popup_form').hide();
-	}
-}).error(function (xhr, ajaxOptions, thrownError) {
-	console.log(xhr.status);
-	console.log(thrownError)
-});
-})		
-		})
+                if ($(this).find("[data-action]").size()) {
+                    console.log(123);
+                    $(this).prepend('<input type="hidden" name="action" value="' + $(this).find("[data-action]").data('action') + '">');
+                    $(this).prepend('<input type="hidden" name="amount" value="' + $(this).find("[data-action]").data('amount') + '">');
+                    $(this).prepend('<input type="hidden" name="url" value="' + $(this).find("[data-action]").data('url') + '">');
+                } else {
+                    console.log('not found');
+                }
+                var formData = new FormData($(this)[0]);
+                var this_block = $(this).closest('.section');
+                $.ajax({
+                    dataType: "json",
+                    type: "POST",
+                    url: "/handler.php",
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                }).done(function (data) {
+                    if (data.status == 'OK') {
+                        alert(data.msg);
+                        this_form.each(function () {
+                            $(this)[0].reset();
+                        })
+                        $('.popup_form').hide();
+                    }
+                    if (data.status == 'ERROR') {
+                        alert(data.msg);
+                    }
+                    if (data.status == 'JC') {
+                        $('body').append(data.form);
+                        $('#jc_form').submit();
+                        this_form.each(function () {
+                            $(this)[0].reset();
+                        })
+                    }
+                    if (data.status == 'SR') {
+                        $('body').append(data.form);
+                        $('#sr_form').submit();
+                        this_form.each(function () {
+                            $(this)[0].reset();
+                        })
+                    }
+                    if (data.status == 'GR') {
+                        $('body').append(data.form);
+                        $('#gr_form').submit();
+                        this_form.each(function () {
+                            $(this)[0].reset();
+                        })
+                    }
+                    if (data.status == 'RK') {
+                        this_form.each(function () {
+                            $(this)[0].reset();
+                        })
+                        window.location.href = data.url;
+                    }
+                    if (data.status == 'redirect') {
+                        this_form.each(function () {
+                            $(this)[0].reset();
+                        })
 
 
+                        window.location.href = data.url;
+                    }
+                    if (data.status == 'thanks') {
+                        this_block.find('.popup_thanks').show();
+                        this_form.each(function () {
+                            $(this)[0].reset();
+                        })
+                        $('.popup_form').hide();
+                    }
+                    if (data.status == 'thanks_order_complete') {
+                        this_block.find('.popup_thanks').show();
+                        this_form.each(function () {
+                            $(this)[0].reset();
+                        })
+                        window.basket.clean();
+                        window.basket.hideForm();
+                        window.basket.renderForm();
+                        window.basket.renderBtn();
+                        window.basket.hideBtn();
+                        alert('Спасибо ваш заказ успешно оформлен!');
+                        $('.popup_form').hide();
+                    }
+                }).error(function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError)
+                });
+            })
+        })
 
-		function openMessAndGetOfFormDataToMaile(){
-			var name = document.getElementById("Nname").value;
-			var mail = document.getElementById("Nemale").value;
-			var telephone = document.getElementById("Ntelephone").value;
-			window.open('mailto:2614462@mail.ru?subject=Дачный участок 19,8 соток&body=Меня зовут: '+name +", "+'Мой телефон: '+telephone
-				 +', Почта для связи: '+mail);
-		}
-	</script>		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<style id="page_style">
-		
 
-	</style>	
-	
-	
+        function openMessAndGetOfFormDataToMaile() {
+            var name = document.getElementById("Nname").value;
+            var mail = document.getElementById("Nemale").value;
+            var telephone = document.getElementById("Ntelephone").value;
+            window.open('mailto:2614462@mail.ru?subject=Дачный участок 19,8 соток&body=Меня зовут: ' + name + ", " + 'Мой телефон: ' + telephone
+                + ', Почта для связи: ' + mail);
+        }
+    </script>
+
+
+    <style id="page_style">
+
+
+    </style>
+
+
 </head>
 <body class="editor_false">
-	<div id="wrapper">
-		<div class="hide_line section section101 " style="background-color:#ffffff;  background-image:url(img/null.png);" data-id="456865" id="b_456865"><a name="a_456865"></a><div class="section_inner">
-			
-			
-			<div class="logo_img"><img width="100%;" src="img/200x0/default_logo.png" alt=""></div>
-			
-			
-			<div class="text1">Прекрасное место для того что бы жить!</div>
-			<div class="phone-and-address"><div class="phone1">8 (921) 447-07-79</div>
-			<div class="address1">г.СПБ, Лен. обл., Тосненский р-н, <br>д.Тарасово, ул.12-ая линия, д.114 </div></div>
-			<div class="clear"></div>
-		</div></div>
-		<div class="hide_line section section154" style="background-color:#ffffff; background-image:url(img/1920x0/030f5d9cebb411c3c1b045fe3a15fe81.jpg);" data-id="456866" id="b_456866"><a name="a_456866"></a>
-			<div class="dark"></div>
-			<div class="noise" style="background-image:url(img/null.png);"></div>
-			
-			<div class="section_inner ">
-				<div class="headliner  underlay">
-					<div><div class="title  "><br><br><br><br>Крестьянско-фермерское хозяйство "Все свое"</div></div>
-					<div class="margin"></div>
-					<div><div class="sub_title  ">Самое высокое качество сельскохозяйственных продуктов на вашем будущем огороде!</div></div>
-					
-				</div>
-				<div class="form_wrapper    ">
-					
-					<div class="form_title">Оставьте заявку на сайте</div>
-					<div class="form_sub_title">И ПОЛУЧИТЕ СКИДКУ ДО 5% НА УЧАСТОК!</div>
-					<div class="form1">
-						 <form action="handler.php" enctype="multipart/form-data" method="post">
-							
-							<input type="hidden" name="Название формы" value="">	
-							
-							<div class="field"><div class="field_title">Введите имя</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" id="Nname" name="Введите имя" placeholder="Введите имя"></div></div>
-							
-							<div class="field"><div class="field_title">Введите E-mail</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" id="Nemale" name="Введите E-mail" placeholder="Введите E-mail"></div></div>
-							
-							<div class="field"><div class="field_title">Введите номер телефона</div><div class="field_description">Владелец участка Вам перезвонит</div><div class="field_input"><input type="text" required="required" name="Введите номер телефона" id="Ntelephone" placeholder="Введите номер телефона"></div></div>
-							
-							<div class="field"><div class="field_input"><input type="submit" class="submit_btn surround" data-action="thanks" data-url="" data-amount="0" value="Получить скидку" style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); " onclick="openMessAndGetOfFormDataToMaile();"></div></div>
-							
-						</form>
-					</div>
-					<div class="form_text">Мы не передаем Вашу персональную информацию третьим лицам.</div>
-					
-					
-				</div>
-				<div class="clear"></div>
-				<div class="popup_thanks">
-					<div class="popup_thanks_inner">
-						<div class="popup_thanks_close">X</div>
-						<div class="popup_thanks_title">Спасибо за заявку!</div>
-						<div class="popup_thanks_text">Заявка отправлена. Наш менеджер свяжется с Вами в ближайшее время.</div>
-					</div>
-				</div>
-				
-			</div>
-		</div>
-		<div class="hide_line wide  section section132 " style="background-color:#ffffff;  background-image:url(img/null.png);" data-id="456877" id="b_456877"><a name="a_456877"></a>
-			<div class="section_inner">
-				<div class="title  ">Что необходимо знать об этом месте</div>
-				<div class="sub_title  hidden   ">____</div>
-				<div class="text">Деревня Тарасово, ул. 12-ая линия, д. 114.
-					<br>
-					Кадастровый номер: 47:26:0720002:132. <br><br>
-					<img class="rightimg" height="600px" src="img/213.png" alt=""> Участок располагается от столбика с
-					лентой и заканчивается примерно
-					примерно через 30 метров за домом на фотографии. Позади
-					участка располагаются другие строения (соседи), спереди - вид на
-					просторное поле. Размер участка:
-					19,8 соток земли. Со стороны
-					поля проходит проток реки, что
-					позволяет получить доступ к воде.
-					Произведено межевание и вынос
-					границ участка на местности (акт
-					в наличии). Электричество: подключено 15 КВт.
-		
-					<br><br>
-					Строение под
-					инвентарь (что на фото справа) уже убрано.
-					<br><br>
-					Поверхность участка имеет небольшой
-					уклон, что является преимуществом
-					для отвода сточных вод, после
-					обильных дождей. 
-					<br><br>
-					В 2020 появилась возможность быстро добираться до города, по платной трассе М11.
-					<br><br>
-					Участок имеет удобное расположение: сможете почувствовать чистый свежий воздух и отсутствие городской суеты.
-					<br><br>
-					Участок так же сдается в аренду (от 3 месяцев). Готовы рассмотреть вариант аренды с последующим выкупом.
-					<br><br>
-					Всем известно, что чаще всего под
-					строительство дома выбирают один из двух видов участков: ЛПХ и ИЖС (личное подсобное хозяйство/индивидуальное жилищное строительство). Данный участок имеет тип: ЛПХ.
-					<br><br>
-					Основные отличия ЛПХ/ИЖС:
-					<br>
-					Свидетельство на право собственности, содержит два крайне
-					важных момента: в нём отражен 1. вид разрешенного использования
-					и 2. категория земли (ЛПХ/ИЖС).
-		
-					<br>
-					Вид использования: Это крайне важный момент!
-					Который Вы должны знать, даже если выбор падет
-					на другую недвижимость, что бы как говориться не остаться с "носом". Бесплатный совет - смотреть на две данные строки.
-					Информация всегда будет отражена в документах! Если строки будут отличаться от необходимых (например ЛПХ, но вид разрешенного использования "Земли сельского хозяйства"),  
-					- сможете выращивать
-					на участке картошку, а в случае попытки строительства, лишь получать предписания о демонтаже дома (оно вам надо?). 
-					Такие участки к слову, стоят как правило сущие копейки. Что оправдывается видом их использования. 
-					<br><br>
-					Если указанно необходимое нам сочетание двух пунктов: ЛПХ + "земли населенных пунктов" (соответствует данным по этому участку) либо ИЖС + "земли населенных пунктов", то Вы сможете безпроблем сразу заняться обустройством собственного дома.
-					<br>
-					ИЖС - вполне конкретно
-					говорит о том, что этот земельный участок разрешается использовать исключительно для
-					строительства дома.
-					<br>
-					ЛПХ - помимо разрешения на строительство, дает возможность ведения сельско-хозяйственной деятельности 
-					(например выращивание скота). Имеет более низкий налог (пожалуй очень важный плюс, для тех
-					кто не любит платить за "воздух"). Последнее особенно актуально в виду изменившегося закона о налогах на недвижимое имущество.
-				</div>
-			</div>
-		</div>
-		<div class="hide_line  section section121 " style="background-color:#FFFFFF;  background-image:url(img/null.png);" data-id="456887" id="b_456887"><a name="a_456887"></a>
-			<div class="section_inner">
-				<div class="title  ">В цифрах</div>
-				<div class="sub_title  ">____<br></div>
-				
-				<div class="arr1">
-					<div class="col_4  border    shadow  ">
-						<div class="num1">121</div>
-						<div class="txt1">ровно такая длинна реки Тосна (в км), устье которой проходит рядом с участком для вашего доступа к воде.</div>
-						<div class="clear"></div>
-					</div>
-					<div class="col_4  border    shadow  ">
-						<div class="num2">5-10</div>
-						<div class="txt2">глубина (в м) как правило достаточная, для доступа к ключевой воде! Стоит упомянуть, что в данной местности множество подземных ключей.</div>
-						<div class="clear"></div>
-					</div>
-					<div class="clear480"></div>
-					<div class="col_4  border    shadow  ">
-						<div class="num3">40%</div>
-						<div class="txt3">примерно на столько выше процент свежего воздуха вы получите проживая в этих местах, банально за счет проходящей вокруг многокиллометровой лесополосы.</div>
-						<div class="clear"></div>
-					</div>
-					<div class="col_4 last  border    shadow  ">
-						<div class="num4">21</div>
-						<div class="txt4">примерно столько дней занимает укоренение привычек человека. Отказаться от сладкого, начать пить не менее 2 литров воды в день, а так же этого времени достаточно что бы принять решение жить там, где лучше экология.</div>
-						<div class="clear"></div>
-					</div>
-					<div class="clear"></div>
-				</div> 
-				
-			</div>
-		</div>
-		<div class="hide_line  section  transparent_ico section128  " style="background-color:#ffffff;  background-image:url(img/null.png);" data-id="456883" id="b_456883"><a name="a_456883"></a>
-			<div class="section_inner">
-				<div class="title  ">КОМПЛЕКСНО!</div>
-				<div class="sub_title  ">ПОЛУЧЯЕМ К УЧАСТКУ<br>
-					Внимание! Оставьте заявку на сайте прямо сейчас и получите 5% скидку! Либо по телефону указанному на сайте <br>(Скидка действует в период: с 01.04.20 по 01.11.20)</div>
-					
-					<div class="arr1">
-						<div class="col_3">
-							<div class="image1 s200  radius     border   shadow  "><img src="img/200x200/148e9b929fe2c9e51d76c2340275fbb9.png" alt=""></div>
-							
-							
-							
-							<div class="title1">Электричество</div>
-							<div class="txt1 ">В полутора метрах от участка - ПАО "Ленэнерго" оборудовали линию электроэнергии. Новая подстанция (ТП-4736) от которой и осуществляется подключение. Подведено 15кВт (счетчик, паспорт, вся документация на электричество в наличии). Возможно увеличение мощности до 60 Квт</div>
-							<div class="price1 ">≈ 100 000р. (экономия) + пол года потраченного времени и нервов</div>
-							<div class="btn1 surround  " style="background-color:#AA0000;  border-radius: 0  30em  30em 30em;   box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); ">Узнать подробнее</div>
-							
-							
-							
-							<div class="popup_form">
-								<div class="popup_form_inner">
-									<div class="popup_form_close">X</div>
-									<div class="popup_form_title">Оставить  заявку</div>
-									<form action="handler.php" enctype="multipart/form-data" method="post">
-										<div class="form1"><input type="hidden" name="Название формы" value="">	<div class="field"><div class="field_title">Введите имя</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите имя" placeholder="Введите имя"></div></div><div class="field"><div class="field_title">Введите E-mail</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите E-mail" placeholder="Введите E-mail"></div></div><div class="field"><div class="field_title">Введите номер телефона</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите номер телефона" placeholder="Введите номер телефона"></div></div><div class="field"><div class="field_input"><input type="submit" class="submit_btn surround" data-action="thanks" data-url="" data-amount="0" value="Отправить" style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); " onclick="openMessAndGetOfFormDataToMaile();"></div></div></div>
-									</form>
-									<div class="popup_form_text">Мы не передаем Вашу персональную информацию третьим лицам.</div>
-								</div>
-							</div>
-							
-							
-						</div>
-						<div class="col_3">
-							<div class="image2 s200  radius      border   shadow  "><img src="img/200x200/untitled-1.png" alt=""></div>
-							
-							
-							
-							<div class="title2">Инфраструктура</div>
-							<div class="txt2 ">Развитая инфраструктура: наличие по близости садика, школы, лечебницы, сельсовета, и конечно нескольких продуктовых магазинов, где всегда самые вкусные и свежие продукты.</div>
-							<div class="price2 ">≈ 2 км.</div>
-							<div class="btn2 surround  " style="background-color:#AA0000;  border-radius: 0  30em  30em 30em;   box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); ">Узнать подробнее</div>
-							
-							
-							<div class="popup_form">
-								<div class="popup_form_inner">
-									<div class="popup_form_close">X</div>
-									<div class="popup_form_title">Оставить  заявку</div>
-									<form action="handler.php" enctype="multipart/form-data" method="post">
-										<div class="form2"><input type="hidden" name="Название формы" value="">	<div class="field"><div class="field_title">Введите имя</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите имя" placeholder="Введите имя"></div></div><div class="field"><div class="field_title">Введите E-mail</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите E-mail" placeholder="Введите E-mail"></div></div><div class="field"><div class="field_title">Введите номер телефона</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите номер телефона" placeholder="Введите номер телефона"></div></div><div class="field"><div class="field_input"><input type="submit" class="submit_btn surround" data-action="thanks" data-url="" data-amount="0" value="Отправить" style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); " onclick="openMessAndGetOfFormDataToMaile();"></div></div></div>
-									</form>
-									<div class="popup_form_text">Мы не передаем Вашу персональную информацию третьим лицам.</div>
-								</div>
-							</div>
-							
-							
-						</div>
-						<div class="col_3 last">
-							<div class="image3 s200  radius      border   shadow  "><img src="img/200x200/3486fbd203c5720a1c8769dc6e9fdece.png" alt=""></div>
-							
-
-							
-							
-							<div class="title3">Зимняя сказка</div>
-							<div class="txt3 ">Убранство усадьбы "Строгоновых-Галицыных" уже давно стала визитной карточкой этого места. Здесь можно покататься на финских санях, квадрациклах, летом поучиться конному спорту, ощутить прелести катания на лодке, провести свадьбу и торжество. Это замечательное место, где можно перед сном погулять и насладиться истинной красотой природы.</div>
-							<div class="price3 ">≈ 2,5 км.</div>
-							<div class="btn3 surround  " style="background-color:#AA0000;  border-radius: 0  30em  30em 30em;   box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); ">Узнать подробнее</div>
-							
-							
-							<div class="popup_form">
-								<div class="popup_form_inner">
-									<div class="popup_form_close">X</div>
-									<div class="popup_form_title">Оставить  заявку</div>
-									<form action="handler.php" enctype="multipart/form-data" method="post">
-										<div class="form3"><input type="hidden" name="Название формы" value="">	<div class="field"><div class="field_title">Введите имя</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите имя" placeholder="Введите имя"></div></div><div class="field"><div class="field_title">Введите E-mail</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите E-mail" placeholder="Введите E-mail"></div></div><div class="field"><div class="field_title">Введите номер телефона</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите номер телефона" placeholder="Введите номер телефона"></div></div><div class="field"><div class="field_input"><input type="submit" class="submit_btn surround" data-action="thanks" data-url="" data-amount="0" value="Отправить" style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); " onclick="openMessAndGetOfFormDataToMaile();"></div></div></div>
-									</form>
-									<div class="popup_form_text">Мы не передаем Вашу персональную информацию третьим лицам.</div>
-								</div>
-							</div>
-							
-							
-						</div>
-						<div class="clear"></div>
-						<div class="extra_info_block_wrapper">
-							<div class="extra_info_block">
-								<div class="close">Х</div>    
-								<div class="left"><img src="img/400x400/148e9b929fe2c9e51d76c2340275fbb9.jpg" alt="">
-									
-								</div>    
-								<div class="right">
-									<div class="extra_info1"><span style="font-size:28px;">Название товара<br></span>Подробное описание продукта.<br>Здесь вы можете расписать:<ul><li>свойства товара,<br type="_moz"></li><li>параметры товара,<br type="_moz"></li><li>описание товара,</li><li>наличие на складе,</li><li>цвет,</li><li>количество.<br></li></ul><p>Напишите их тут. И будет у вас не просто сайт, а интернет-магазин. <br></p></div>
-									
-									<div class="btn1x surround " style="background-color:#AA0000; ">Узнать подробнее</div>
-								</div>    
-								<div class="clear"></div>
-								
-							</div>
-						</div>
-						<div class="extra_info_block_wrapper">
-							<div class="extra_info_block">
-								<div class="close">Х</div>
-								<div class="left"><img src="img/400x400/ca4c698a9d005fad315047107c1df30d.jpg" alt="">
-									
-								</div>    
-								<div class="right">
-									<div class="extra_info2"><span style="font-size:28px;">Название товара<br></span>Подробное описание продукта.<br>Здесь вы можете расписать:<ul><li>свойства товара,<br type="_moz"></li><li>параметры товара,<br type="_moz"></li><li>описание товара,</li><li>наличие на складе,</li><li>цвет,</li><li>количество.<br></li></ul><p>Напишите их тут. И будет у вас не просто сайт, а интернет-магазин. <br></p></div>
-									
-									<div class="btn2x surround " style="background-color:#AA0000; ">Узнать подробнее</div>
-								</div>
-								<div class="clear"></div>
-								
-							</div>
-						</div>
-						<div class="extra_info_block_wrapper">
-							<div class="extra_info_block">
-								<div class="close">Х</div>
-								<div class="left"><img src="img/400x400/3486fbd203c5720a1c8769dc6e9fdece.jpg" alt="">
-									
-									
-								</div>    
-								<div class="right">
-									<div class="extra_info3"><span style="font-size:28px;">Название товара<br></span>Подробное описание продукта.<br>Здесь вы можете расписать:<ul><li>свойства товара,<br type="_moz"></li><li>параметры товара,<br type="_moz"></li><li>описание товара,</li><li>наличие на складе,</li><li>цвет,</li><li>количество.<br></li></ul><p>Напишите их тут. И будет у вас не просто сайт, а интернет-магазин. <br></p></div>
-									
-									<div class="btn3x surround " style="background-color:#AA0000; ">Узнать подробнее</div>
-								</div>    
-								<div class="clear"></div>    
-								
-							</div>
-						</div>
-					</div> 
-					<div class="popup_thanks">
-						<div class="popup_thanks_inner">
-							<div class="popup_thanks_close">X</div>
-							<div class="popup_thanks_title">Спасибо за заявку!</div>
-							<div class="popup_thanks_text">Заявка отправлена. Наш менеджер свяжется с Вами в ближайшее время.</div>
-						</div>
-					</div>
-					
-					
-					<div class="arr1">
-						<div class="col_3">
-							<div class="image1 s200  radius     border   shadow  "><img src="img/200x200/37d1d6d1d8608657d0533e48c4d0c8bf.jpg" alt=""></div>
-							
-							
-							
-							<div class="title1">ФРУКТЫ И ЯГОДЫ</div>
-							<div class="txt1 ">Обустройте на большом участке свой огород, побывайте в лесу, испытайте настоящий вкус природы!</div>
-							<div class="price1 ">Абсолютно бесценно!</div>
-							<div class="btn1 surround  " style="background-color:#AA0000;  border-radius: 0  30em  30em 30em;   box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); ">Узнать подробнее</div>
-							
-							
-							
-							<div class="popup_form">
-								<div class="popup_form_inner">
-									<div class="popup_form_close">X</div>
-									<div class="popup_form_title">Оставить  заявку</div>
-									<form action="handler.php" enctype="multipart/form-data" method="post">
-										<div class="form1"><input type="hidden" name="Название формы" value="">	<div class="field"><div class="field_title">Введите имя</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите имя" placeholder="Введите имя"></div></div><div class="field"><div class="field_title">Введите E-mail</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите E-mail" placeholder="Введите E-mail"></div></div><div class="field"><div class="field_title">Введите номер телефона</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите номер телефона" placeholder="Введите номер телефона"></div></div><div class="field"><div class="field_input"><input type="submit" class="submit_btn surround" data-action="thanks" data-url="" data-amount="0" value="Отправить" style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); " onclick="openMessAndGetOfFormDataToMaile();"></div></div></div>
-									</form>
-									<div class="popup_form_text">Мы не передаем Вашу персональную информацию третьим лицам.</div>
-								</div>
-							</div>
-							
-							
-						</div>
-						<div class="col_3">
-							<div class="image2 s200  radius      border   shadow  "><img src="img/200x200/f109b49e914aa278a8a3fd4bcbe43b06.jpg" alt=""></div>
-							
-							
-							
-							<div class="title2">МОЛОКО И ЯЙЦА</div>
-							<div class="txt2 ">Попробовать молоко и яйца буквально вот-вот отданные самой природой, чистым и естественным путём, без всякой химической обработки и добавок!</div>
-							<div class="price2 ">≈ 60 руб./л.молока<br>≈ 12 руб./яйцо</div>
-							<div class="btn2 surround  " style="background-color:#AA0000;  border-radius: 0  30em  30em 30em;   box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); ">Узнать подробнее</div>
-							
-							
-							<div class="popup_form">
-								<div class="popup_form_inner">
-									<div class="popup_form_close">X</div>
-									<div class="popup_form_title">Оставить  заявку</div>
-									<form action="handler.php" enctype="multipart/form-data" method="post">
-										<div class="form2"><input type="hidden" name="Название формы" value="">	<div class="field"><div class="field_title">Введите имя</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите имя" placeholder="Введите имя"></div></div><div class="field"><div class="field_title">Введите E-mail</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите E-mail" placeholder="Введите E-mail"></div></div><div class="field"><div class="field_title">Введите номер телефона</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите номер телефона" placeholder="Введите номер телефона"></div></div><div class="field"><div class="field_input"><input type="submit" class="submit_btn surround" data-action="thanks" data-url="" data-amount="0" value="Отправить" style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); " onclick="openMessAndGetOfFormDataToMaile();"></div></div></div>
-									</form>
-									<div class="popup_form_text">Мы не передаем Вашу персональную информацию третьим лицам.</div>
-								</div>
-							</div>
-							
-							
-						</div>
-						<div class="col_3 last">
-							<div class="image3 s200  radius      border   shadow  "><img src="img/200x200/ca4c698a9d005fad315047107c1df30d.jpg" alt=""></div>
-							
-							
-							
-							<div class="title3">Натуральные продукты</div>
-							<div class="txt3 ">Свежая говядина с местной фермы. Доставляется в близь лежащий магазин. Большое разнообразие "живых продуктов".</div>
-							<div class="price3 ">≈ 350 руб./кг за говядину</div>
-							<div class="btn3 surround  " style="background-color:#AA0000;  border-radius: 0  30em  30em 30em;   box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); ">Узнать подробнее</div>
-							
-							
-							<div class="popup_form">
-								<div class="popup_form_inner">
-									<div class="popup_form_close">X</div>
-									<div class="popup_form_title">Оставить  заявку</div>
-									<form action="handler.php" enctype="multipart/form-data" method="post">
-										<div class="form3"><input type="hidden" name="Название формы" value="">	<div class="field"><div class="field_title">Введите имя</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите имя" placeholder="Введите имя"></div></div><div class="field"><div class="field_title">Введите E-mail</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите E-mail" placeholder="Введите E-mail"></div></div><div class="field"><div class="field_title">Введите номер телефона</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите номер телефона" placeholder="Введите номер телефона"></div></div><div class="field"><div class="field_input"><input type="submit" class="submit_btn surround" data-action="thanks" data-url="" data-amount="0" value="Отправить" style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); " onclick="openMessAndGetOfFormDataToMaile();"></div></div></div>
-									</form>
-									<div class="popup_form_text">Мы не передаем Вашу персональную информацию третьим лицам.</div>
-								</div>
-							</div>
-							
-							
-						</div>
-						<div class="clear"></div>
-						<div class="extra_info_block_wrapper">
-							<div class="extra_info_block">
-								<div class="close">Х</div>    
-								<div class="left"><img src="img/400x400/37d1d6d1d8608657d0533e48c4d0c8bf.jpg" alt="">
-									
-								</div>    
-								<div class="right">
-									<div class="extra_info1"><span style="font-size:28px;">Название товара<br></span>Подробное описание продукта.<br>Здесь вы можете расписать:<ul><li>свойства товара,<br type="_moz"></li><li>параметры товара,<br type="_moz"></li><li>описание товара,</li><li>наличие на складе,</li><li>цвет,</li><li>количество.<br></li></ul><p>Напишите их тут. И будет у вас не просто сайт, а интернет-магазин. <br></p></div>
-									
-									<div class="btn1x surround " style="background-color:#AA0000; ">Узнать подробнее</div>
-								</div>    
-								<div class="clear"></div>
-								
-							</div>
-						</div>
-						<div class="extra_info_block_wrapper">
-							<div class="extra_info_block">
-								<div class="close">Х</div>
-								<div class="left"><img src="img/400x400/f109b49e914aa278a8a3fd4bcbe43b06.jpg" alt="">
-									
-								</div>    
-								<div class="right">
-									<div class="extra_info2"><span style="font-size:28px;">Название товара<br></span>Подробное описание продукта.<br>Здесь вы можете расписать:<ul><li>свойства товара,<br type="_moz"></li><li>параметры товара,<br type="_moz"></li><li>описание товара,</li><li>наличие на складе,</li><li>цвет,</li><li>количество.<br></li></ul><p>Напишите их тут. И будет у вас не просто сайт, а интернет-магазин. <br></p></div>
-									
-									<div class="btn2x surround " style="background-color:#AA0000; ">Узнать подробнее</div>
-								</div>
-								<div class="clear"></div>
-								
-							</div>
-						</div>
-						<div class="extra_info_block_wrapper">
-							<div class="extra_info_block">
-								<div class="close">Х</div>
-								<div class="left"><img src="img/400x400/8518f2a4143b22d87cd4772a69d55669.jpg" alt="">
-									
-									
-								</div>    
-								<div class="right">
-									<div class="extra_info3"><span style="font-size:28px;">Название товара<br></span>Подробное описание продукта.<br>Здесь вы можете расписать:<ul><li>свойства товара,<br type="_moz"></li><li>параметры товара,<br type="_moz"></li><li>описание товара,</li><li>наличие на складе,</li><li>цвет,</li><li>количество.<br></li></ul><p>Напишите их тут. И будет у вас не просто сайт, а интернет-магазин. <br></p></div>
-									
-									<div class="btn3x surround " style="background-color:#AA0000; ">Узнать подробнее</div>
-								</div>    
-								<div class="clear"></div>    
-								
-							</div>
-						</div>
-					</div> 
-					<div class="popup_thanks">
-						<div class="popup_thanks_inner">
-							<div class="popup_thanks_close">X</div>
-							<div class="popup_thanks_title">Спасибо за заявку!</div>
-							<div class="popup_thanks_text">Заявка отправлена. Наш менеджер свяжется с Вами в ближайшее время.</div>
-						</div>
-					</div>
-					
-					
-				</div>
-			</div>
-			<div class="hide_line  section section149 mode_2  " style="background-color:#ffffff;  background-image:url(img/null.png);" data-id="456889" id="b_456889"><a name="a_456889"></a>
-			
-			</div>
-	<div class="hide_line  section  transparent_ico section128  " style="background-color:#ffffff;  background-image:url(img/null.png);" data-id="456878" id="b_456878"><a name="a_456878"></a>
-		
-				<div class="section_inner">
-					<div class="title  ">Оставьте отзыв по телефону или эл.почте</div>
-					<div class="sub_title  ">Нам важно ваше мнение <br>(опубликованы последние 3 мнения)</div>
-					
-					<div class="arr1">
-						<div class="col_3">
-							<div class="image1 s200    border   shadow  "><img src="img/200x200/3f50cfd0d6e78e5ba44b37d171d9599b.jpg" alt=""></div>
-							
-							
-							
-							<div class="title1">ВАЛЕРИЯ</div>
-							<div class="txt1 ">Отличный сайт! Буду иметь в виду если захочу обосноваться в этом месте!</div>
-							<div class="price1  hidden  ">2000 руб.</div>
-							<div class=" hidden btn1 surround  " style="background-color:#AA0000;  border-radius: 0  30em  30em 30em;   box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); ">Узнать подробнее</div>
-							
-							
-							
-							<div class="popup_form">
-								<div class="popup_form_inner">
-									<div class="popup_form_close">X</div>
-									<div class="popup_form_title">Оставить  заявку</div>
-									<form action="handler.php" enctype="multipart/form-data" method="post">
-										<div class="form1"><input type="hidden" name="Название формы" value="">	<div class="field"><div class="field_title">Введите имя</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите имя" placeholder="Введите имя"></div></div><div class="field"><div class="field_title">Введите E-mail</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите E-mail" placeholder="Введите E-mail"></div></div><div class="field"><div class="field_title">Введите номер телефона</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите номер телефона" placeholder="Введите номер телефона"></div></div><div class="field"><div class="field_input"><input type="submit" class="submit_btn surround" data-action="thanks" data-url="" data-amount="0" value="Отправить" style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); " onclick="openMessAndGetOfFormDataToMaile();"></div></div></div>
-									</form>
-									<div class="popup_form_text">Мы не передаем Вашу персональную информацию третьим лицам.</div>
-								</div>
-							</div>
-							
-							
-						</div>
-						<div class="col_3">
-							<div class="image2 s200     border   shadow  "><img src="img/200x200/2f39a9de28fb3b5975f1e84480c5b968.jpg" alt=""></div>
-							
-							
-							
-							<div class="title2">ОЛЬГА</div>
-							<div class="txt2 ">Понравилось описание, сразу захотела поехать туда жить))</div>
-							<div class="price2  hidden  ">2000 руб.</div>
-							<div class=" hidden btn2 surround  " style="background-color:#AA0000;  border-radius: 0  30em  30em 30em;   box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); ">Узнать подробнее</div>
-							
-							
-							<div class="popup_form">
-								<div class="popup_form_inner">
-									<div class="popup_form_close">X</div>
-									<div class="popup_form_title">Оставить  заявку</div>
-									<form action="handler.php" enctype="multipart/form-data" method="post">
-										<div class="form2"><input type="hidden" name="Название формы" value="">	<div class="field"><div class="field_title">Введите имя</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите имя" placeholder="Введите имя"></div></div><div class="field"><div class="field_title">Введите E-mail</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите E-mail" placeholder="Введите E-mail"></div></div><div class="field"><div class="field_title">Введите номер телефона</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите номер телефона" placeholder="Введите номер телефона"></div></div><div class="field"><div class="field_input"><input type="submit" class="submit_btn surround" data-action="thanks" data-url="" data-amount="0" value="Отправить" style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); " onclick="openMessAndGetOfFormDataToMaile();"></div></div></div>
-									</form>
-									<div class="popup_form_text">Мы не передаем Вашу персональную информацию третьим лицам.</div>
-								</div>
-							</div>
-							
-							
-						</div>
-						<div class="col_3 last">
-							<div class="image3 s200     border   shadow  "><img src="img/200x200/bbe959df952c14c77be9f62196731e7f.jpg" alt=""></div>
-							
-							
-							
-							<div class="title3">АННА</div>
-							<div class="txt3 ">Блин, хочу загород покушать шашлычка, и в лес!!!</div>
-							<div class="price3  hidden  ">2000 руб.</div>
-							<div class=" hidden btn3 surround  " style="background-color:#AA0000;  border-radius: 0  30em  30em 30em;   box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); ">Узнать подробнее</div>
-							
-							
-							<div class="popup_form">
-								<div class="popup_form_inner">
-									<div class="popup_form_close">X</div>
-									<div class="popup_form_title">Оставить  заявку</div>
-									<form action="handler.php" enctype="multipart/form-data" method="post">
-										<div class="form3"><input type="hidden" name="Название формы" value="">	<div class="field"><div class="field_title">Введите имя</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите имя" placeholder="Введите имя"></div></div><div class="field"><div class="field_title">Введите E-mail</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите E-mail" placeholder="Введите E-mail"></div></div><div class="field"><div class="field_title">Введите номер телефона</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите номер телефона" placeholder="Введите номер телефона"></div></div><div class="field"><div class="field_input"><input type="submit" class="submit_btn surround" data-action="thanks" data-url="" data-amount="0" value="Отправить" style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); " onclick="openMessAndGetOfFormDataToMaile();"></div></div></div>
-									</form>
-									<div class="popup_form_text">Мы не передаем Вашу персональную информацию третьим лицам.</div>
-								</div>
-							</div>
-							
-							
-						</div>
-						<div class="clear"></div>
-						<div class="extra_info_block_wrapper">
-							<div class="extra_info_block">
-								<div class="close">Х</div>    
-								<div class="left"><img src="img/400x400/3f50cfd0d6e78e5ba44b37d171d9599b.jpg" alt="">
-									
-								</div>    
-								<div class="right">
-									<div class="extra_info1"><span style="font-size:28px;">Название товара<br></span>Подробное описание продукта.<br>Здесь вы можете расписать:<ul><li>свойства товара,<br type="_moz"></li><li>параметры товара,<br type="_moz"></li><li>описание товара,</li><li>наличие на складе,</li><li>цвет,</li><li>количество.<br></li></ul><p>Напишите их тут. И будет у вас не просто сайт, а интернет-магазин. <br></p></div>
-									
-									<div class="btn1x surround " style="background-color:#AA0000; ">Узнать подробнее</div>
-								</div>    
-								<div class="clear"></div>
-								
-							</div>
-						</div>
-						<div class="extra_info_block_wrapper">
-							<div class="extra_info_block">
-								<div class="close">Х</div>
-								<div class="left"><img src="img/400x400/2f39a9de28fb3b5975f1e84480c5b968.jpg" alt="">
-									
-								</div>    
-								<div class="right">
-									<div class="extra_info2"><span style="font-size:28px;">Название товара<br></span>Подробное описание продукта.<br>Здесь вы можете расписать:<ul><li>свойства товара,<br type="_moz"></li><li>параметры товара,<br type="_moz"></li><li>описание товара,</li><li>наличие на складе,</li><li>цвет,</li><li>количество.<br></li></ul><p>Напишите их тут. И будет у вас не просто сайт, а интернет-магазин. <br></p></div>
-									
-									<div class="btn2x surround " style="background-color:#AA0000; ">Узнать подробнее</div>
-								</div>
-								<div class="clear"></div>
-								
-							</div>
-						</div>
-						<div class="extra_info_block_wrapper">
-							<div class="extra_info_block">
-								<div class="close">Х</div>
-								<div class="left"><img src="img/400x400/bbe959df952c14c77be9f62196731e7f.jpg" alt="">
-									
-									
-								</div>    
-								<div class="right">
-									<div class="extra_info3"><span style="font-size:28px;">Название товара<br></span>Подробное описание продукта.<br>Здесь вы можете расписать:<ul><li>свойства товара,<br type="_moz"></li><li>параметры товара,<br type="_moz"></li><li>описание товара,</li><li>наличие на складе,</li><li>цвет,</li><li>количество.<br></li></ul><p>Напишите их тут. И будет у вас не просто сайт, а интернет-магазин. <br></p></div>
-									
-									<div class="btn3x surround " style="background-color:#AA0000; ">Узнать подробнее</div>
-								</div>    
-								<div class="clear"></div>    
-								
-							</div>
-						</div>
-					</div> 
-					<div class="popup_thanks">
-						<div class="popup_thanks_inner">
-							<div class="popup_thanks_close">X</div>
-							<div class="popup_thanks_title">Спасибо за заявку!</div>
-							<div class="popup_thanks_text">Заявка отправлена. Наш менеджер свяжется с Вами в ближайшее время.</div>
-						</div>
-					</div>
-					
-					
-				</div>
-			</div>
-			<div class="section section153   " style="background-color:#ffffff; background-image:url(img/1920x0/image_54.jpg);" data-id="456876" id="b_456876"><a name="a_456876"></a>
-				
-				<div class="dark"></div>
-				<div class="noise" style="background-image:url(img/null.png);"></div>
-				<div class="section_inner  big   ">
-					<div class="title  ">Контакты:</div>
-					
-					
-					
-					
-					
-					
-					
-					
-					<div class="sub_title  ">Адрес: г.СПБ, Лен. обл., Тосненский р-н, <br>д.Тарасово, ул.12-ая линия, д.114<br><br>Телефон: 8 (921) 447-07-79<br>Электронный адрес: 2614462@mail.ru<br><br>Удобное время для связи: с 10:00 до 19:00 (пн-вс)</div>
-					
-					
-					
-					<div class="popup_form">
-						<div class="popup_form_inner">
-							<div class="popup_form_close">X</div>
-							<div class="popup_form_title">Оставить  заявку</div>
-							<form action="handler.php" enctype="multipart/form-data" method="post">
-								<div class="form1"><input type="hidden" name="Название формы" value="">	<div class="field"><div class="field_title">Введите имя</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите имя" placeholder="Введите имя"></div></div><div class="field"><div class="field_title">Введите E-mail</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите E-mail" placeholder="Введите E-mail"></div></div><div class="field"><div class="field_title">Введите номер телефона</div><div class="field_description"></div><div class="field_input"><input type="text" required="required" name="Введите номер телефона" placeholder="Введите номер телефона"></div></div><div class="field"><div class="field_input"><input type="submit" class="submit_btn surround" data-action="thanks" data-url="" data-amount="0" value="Заказать" style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); " onclick="openMessAndGetOfFormDataToMaile();"></div></div></div>
-							</form>
-							<div class="popup_form_text">Мы не передаем Вашу персональную информацию третьим лицам.</div>
-						</div>
-					</div>
-					
-					
-					<div class="popup_thanks">
-						<div class="popup_thanks_inner">
-							<div class="popup_thanks_close">X</div>
-							<div class="popup_thanks_title">Спасибо за заявку!</div>
-							<div class="popup_thanks_text">Заявка отправлена. Наш менеджер свяжется с Вами в ближайшее время.</div>
-						</div>
-					</div>
-					
-				</div>
-			</div>
+<div id="wrapper">
+    <div class="hide_line section section101 " style="background-color:#ffffff;  background-image:url(img/null.png);"
+         data-id="456865" id="b_456865"><a name="a_456865"></a>
+        <div class="section_inner">
 
 
-
-			<div class="map_inner"></div></div><div class="text   hidden  ">контактная иформация</div></div>
-			<div class="hide_line section section119 " style="background-color:#ffffff;  background-image:url(img/null.png);" data-id="456874" id="b_456874">
-				
-				<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A74c32a1625b4c7bd51d669743f6b6175b775eb5280c323c08272f84d1563d158&amp;width=100%25&amp;height=434&amp;lang=ru_RU&amp;scroll=true"></script>
-
-				<br>
+            <div class="logo_img"><img width="100%;" src="img/200x0/default_logo.png" alt=""></div>
 
 
-				<div class="section_inner">
+            <div class="text1">Прекрасное место для того что бы жить!</div>
+            <div class="phone-and-address">
+                <div class="phone1">8 (921) 447-07-79</div>
+                <div class="address1">г.СПБ, Лен. обл., Тосненский р-н, <br>д.Тарасово, ул.12-ая линия, д.114</div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="hide_line section section154"
+         style="background-color:#ffffff; background-image:url(img/1920x0/030f5d9cebb411c3c1b045fe3a15fe81.jpg);"
+         data-id="456866" id="b_456866"><a name="a_456866"></a>
+        <div class="dark"></div>
+        <div class="noise" style="background-image:url(img/null.png);"></div>
+
+        <div class="section_inner ">
+            <div class="headliner  underlay">
+                <div>
+                    <div class="title  "><br><br><br><br>Крестьянско-фермерское хозяйство "Все свое"</div>
+                </div>
+                <div class="margin"></div>
+                <div>
+                    <div class="sub_title  ">Самое высокое качество сельскохозяйственных продуктов на вашем будущем
+                        огороде!
+                    </div>
+                </div>
+
+            </div>
+            <div class="form_wrapper    ">
+
+                <div class="form_title">Оставьте заявку на сайте</div>
+                <div class="form_sub_title">И ПОЛУЧИТЕ СКИДКУ ДО 5% НА УЧАСТОК!</div>
+                <div class="form1">
+                    <form action="handler.php" enctype="multipart/form-data" method="post">
+
+                        <input type="hidden" name="Название формы" value="">
+
+                        <div class="field">
+                            <div class="field_title">Введите имя</div>
+                            <div class="field_description"></div>
+                            <div class="field_input"><input type="text" required="required" id="Nname"
+                                                            name="Введите имя" placeholder="Введите имя"></div>
+                        </div>
+
+                        <div class="field">
+                            <div class="field_title">Введите E-mail</div>
+                            <div class="field_description"></div>
+                            <div class="field_input"><input type="text" required="required" id="Nemale"
+                                                            name="Введите E-mail" placeholder="Введите E-mail"></div>
+                        </div>
+
+                        <div class="field">
+                            <div class="field_title">Введите номер телефона</div>
+                            <div class="field_description">Владелец участка Вам перезвонит</div>
+                            <div class="field_input"><input type="text" required="required"
+                                                            name="Введите номер телефона" id="Ntelephone"
+                                                            placeholder="Введите номер телефона"></div>
+                        </div>
+
+                        <div class="field">
+                            <div class="field_input"><input type="submit" class="submit_btn surround"
+                                                            data-action="thanks" data-url="" data-amount="0"
+                                                            value="Получить скидку"
+                                                            style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); "
+                                                            onclick="openMessAndGetOfFormDataToMaile();"></div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="form_text">Мы не передаем Вашу персональную информацию третьим лицам.</div>
 
 
+            </div>
+            <div class="clear"></div>
+            <div class="popup_thanks">
+                <div class="popup_thanks_inner">
+                    <div class="popup_thanks_close">X</div>
+                    <div class="popup_thanks_title">Спасибо за заявку!</div>
+                    <div class="popup_thanks_text">Заявка отправлена. Наш менеджер свяжется с Вами в ближайшее время.
+                    </div>
+                </div>
+            </div>
 
-					
-					
-					<div class="logo_img" ><img width="100%;" src="img/200x0/default_logo.png" src="img/200x0/default_logo.png" alt=""></div>
-					
-					
-					<div class="address-and-ua">
-						<div class="address1">Сайт произведен в ознакомительных целях и не является публичной офертой.</div>
-						<div class="policy2 ">Политика конфиденциальности</div>
-					</div>
-					<div class="phone-and-address">
-						<div class="phone1">8 (921) 447-07-79</div>
-						<div class="text1">Звонок по интерисующим вопросам</div>
-						<a target="_blank" href="http://tobiz.net/" class="tobiz_link ">Сделано на платформе TOBIZ.NET</a>
-					</div>
-					<div class="clear"></div>
-					<div class="policy2_popup">
-						<div class="policy2_title">Политика конфиденциальности</div>
-						<div class="policy2_body"><p>Данный сайт уважает Ваше право и соблюдает конфиденциальность при заполнении, передаче и хранении Ваших конфиденциальных сведений.<br>Размещение заявки на данном сайте означает Ваше согласие на обработку данных и дальнейшей передачи ваших контактных данных нашей компании.<br>Под персональными данными подразумевается информация, относящаяся к субъекту персональных данных, в частности имя, контактные реквизиты (адрес электронной почты) и иные данные, относимые Федеральным законом от 27 июля 2006 года № 152-ФЗ «О персональных данных» к категории персональных данных.<br>Целью обработки персональных данных является информирование и помощь в осуществлении сделки с продажей земли.</p></div>
-					</div>
-				</div></div>
-			</div>
-			
-			
-			
-			<!-- Yandex.Metrika counter -->
-			<script type="text/javascript" >
-				(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-					m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-				(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+        </div>
+    </div>
+    <div class="hide_line wide  section section132 "
+         style="background-color:#ffffff;  background-image:url(img/null.png);" data-id="456877" id="b_456877"><a
+            name="a_456877"></a>
+        <div class="section_inner">
+            <div class="title  ">Что необходимо знать об этом месте</div>
+            <div class="sub_title  hidden   ">____</div>
+            <div class="text">Деревня Тарасово, ул. 12-ая линия, д. 114.
+                <br>
+                Кадастровый номер: 47:26:0720002:132. <br><br>
+                <img class="rightimg" height="600px" src="img/213.png" alt=""> Участок располагается от столбика с
+                лентой и заканчивается примерно
+                примерно через 30 метров за домом на фотографии. Позади
+                участка располагаются другие строения (соседи), спереди - вид на
+                просторное поле. Размер участка:
+                19,8 соток земли. Со стороны
+                поля проходит проток реки, что
+                позволяет получить доступ к воде.
+                Произведено межевание и вынос
+                границ участка на местности (акт
+                в наличии). Электричество: подключено 15 КВт.
 
-				ym(55934779, "init", {
-					clickmap:true,
-					trackLinks:true,
-					accurateTrackBounce:true,
-					webvisor:true
-				});
-			</script>
-			<noscript><div><img src="https://mc.yandex.ru/watch/55934779" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-			<!-- /Yandex.Metrika counter --> 	
-			
-			
-			
-			
-			
+                <br><br>
+                Строение под
+                инвентарь (что на фото справа) уже убрано.
+                <br><br>
+                Поверхность участка имеет небольшой
+                уклон, что является преимуществом
+                для отвода сточных вод, после
+                обильных дождей.
+                <br><br>
+                В 2020 появилась возможность быстро добираться до города, по платной трассе М11.
+                <br><br>
+                Участок имеет удобное расположение: сможете почувствовать чистый свежий воздух и отсутствие городской
+                суеты.
+                <br><br>
+                Участок так же сдается в аренду (от 3 месяцев). Готовы рассмотреть вариант аренды с последующим выкупом.
+                <br><br>
+                Всем известно, что чаще всего под
+                строительство дома выбирают один из двух видов участков: ЛПХ и ИЖС (личное подсобное
+                хозяйство/индивидуальное жилищное строительство). Данный участок имеет тип: ЛПХ.
+                <br><br>
+                Основные отличия ЛПХ/ИЖС:
+                <br>
+                Свидетельство на право собственности, содержит два крайне
+                важных момента: в нём отражен 1. вид разрешенного использования
+                и 2. категория земли (ЛПХ/ИЖС).
+
+                <br>
+                Вид использования: Это крайне важный момент!
+                Который Вы должны знать, даже если выбор падет
+                на другую недвижимость, что бы как говориться не остаться с "носом". Бесплатный совет - смотреть на две
+                данные строки.
+                Информация всегда будет отражена в документах! Если строки будут отличаться от необходимых (например
+                ЛПХ, но вид разрешенного использования "Земли сельского хозяйства"),
+                - сможете выращивать
+                на участке картошку, а в случае попытки строительства, лишь получать предписания о демонтаже дома (оно
+                вам надо?).
+                Такие участки к слову, стоят как правило сущие копейки. Что оправдывается видом их использования.
+                <br><br>
+                Если указанно необходимое нам сочетание двух пунктов: ЛПХ + "земли населенных пунктов" (соответствует
+                данным по этому участку) либо ИЖС + "земли населенных пунктов", то Вы сможете безпроблем сразу заняться
+                обустройством собственного дома.
+                <br>
+                ИЖС - вполне конкретно
+                говорит о том, что этот земельный участок разрешается использовать исключительно для
+                строительства дома.
+                <br>
+                ЛПХ - помимо разрешения на строительство, дает возможность ведения сельско-хозяйственной деятельности
+                (например выращивание скота). Имеет более низкий налог (пожалуй очень важный плюс, для тех
+                кто не любит платить за "воздух"). Последнее особенно актуально в виду изменившегося закона о налогах на
+                недвижимое имущество.
+            </div>
+        </div>
+    </div>
+    <div class="hide_line  section section121 " style="background-color:#FFFFFF;  background-image:url(img/null.png);"
+         data-id="456887" id="b_456887"><a name="a_456887"></a>
+        <div class="section_inner">
+            <div class="title  ">В цифрах</div>
+            <div class="sub_title  ">____<br></div>
+
+            <div class="arr1">
+                <div class="col_4  border    shadow  ">
+                    <div class="num1">121</div>
+                    <div class="txt1">ровно такая длинна реки Тосна (в км), устье которой проходит рядом с участком для
+                        вашего доступа к воде.
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="col_4  border    shadow  ">
+                    <div class="num2">5-10</div>
+                    <div class="txt2">глубина (в м) как правило достаточная, для доступа к ключевой воде! Стоит
+                        упомянуть, что в данной местности множество подземных ключей.
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear480"></div>
+                <div class="col_4  border    shadow  ">
+                    <div class="num3">40%</div>
+                    <div class="txt3">примерно на столько выше процент свежего воздуха вы получите проживая в этих
+                        местах, банально за счет проходящей вокруг многокиллометровой лесополосы.
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="col_4 last  border    shadow  ">
+                    <div class="num4">21</div>
+                    <div class="txt4">примерно столько дней занимает укоренение привычек человека. Отказаться от
+                        сладкого, начать пить не менее 2 литров воды в день, а так же этого времени достаточно что бы
+                        принять решение жить там, где лучше экология.
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+        </div>
+    </div>
+    <div class="hide_line  section  transparent_ico section128  "
+         style="background-color:#ffffff;  background-image:url(img/null.png);" data-id="456883" id="b_456883"><a
+            name="a_456883"></a>
+        <div class="section_inner">
+            <div class="title  ">КОМПЛЕКСНО!</div>
+            <div class="sub_title  ">ПОЛУЧЯЕМ К УЧАСТКУ<br>
+                Внимание! Оставьте заявку на сайте прямо сейчас и получите 5% скидку! Либо по телефону указанному на
+                сайте <br>(Скидка действует в период: с 01.04.20 по 01.11.20)
+            </div>
+
+            <div class="arr1">
+                <div class="col_3">
+                    <div class="image1 s200  radius     border   shadow  "><img
+                            src="img/200x200/148e9b929fe2c9e51d76c2340275fbb9.png" alt=""></div>
 
 
-		</body>
-		</html>
+                    <div class="title1">Электричество</div>
+                    <div class="txt1 ">В полутора метрах от участка - ПАО "Ленэнерго" оборудовали линию электроэнергии.
+                        Новая подстанция (ТП-4736) от которой и осуществляется подключение. Подведено 15кВт (счетчик,
+                        паспорт, вся документация на электричество в наличии). Возможно увеличение мощности до 60 Квт
+                    </div>
+                    <div class="price1 ">≈ 100 000р. (экономия) + пол года потраченного времени и нервов</div>
+                    <div class="btn1 surround  "
+                         style="background-color:#AA0000;  border-radius: 0  30em  30em 30em;   box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); ">
+                        Узнать подробнее
+                    </div>
+
+
+                    <div class="popup_form">
+                        <div class="popup_form_inner">
+                            <div class="popup_form_close">X</div>
+                            <div class="popup_form_title">Оставить заявку</div>
+                            <form action="handler.php" enctype="multipart/form-data" method="post">
+                                <div class="form1"><input type="hidden" name="Название формы" value="">
+                                    <div class="field">
+                                        <div class="field_title">Введите имя</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите имя" placeholder="Введите имя">
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_title">Введите E-mail</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите E-mail"
+                                                                        placeholder="Введите E-mail"></div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_title">Введите номер телефона</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите номер телефона"
+                                                                        placeholder="Введите номер телефона"></div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_input"><input type="submit" class="submit_btn surround"
+                                                                        data-action="thanks" data-url="" data-amount="0"
+                                                                        value="Отправить"
+                                                                        style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); "
+                                                                        onclick="openMessAndGetOfFormDataToMaile();">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="popup_form_text">Мы не передаем Вашу персональную информацию третьим лицам.
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col_3">
+                    <div class="image2 s200  radius      border   shadow  "><img src="img/200x200/untitled-1.png"
+                                                                                 alt=""></div>
+
+
+                    <div class="title2">Инфраструктура</div>
+                    <div class="txt2 ">Развитая инфраструктура: наличие по близости садика, школы, лечебницы,
+                        сельсовета, и конечно нескольких продуктовых магазинов, где всегда самые вкусные и свежие
+                        продукты.
+                    </div>
+                    <div class="price2 ">≈ 2 км.</div>
+                    <div class="btn2 surround  "
+                         style="background-color:#AA0000;  border-radius: 0  30em  30em 30em;   box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); ">
+                        Узнать подробнее
+                    </div>
+
+
+                    <div class="popup_form">
+                        <div class="popup_form_inner">
+                            <div class="popup_form_close">X</div>
+                            <div class="popup_form_title">Оставить заявку</div>
+                            <form action="handler.php" enctype="multipart/form-data" method="post">
+                                <div class="form2"><input type="hidden" name="Название формы" value="">
+                                    <div class="field">
+                                        <div class="field_title">Введите имя</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите имя" placeholder="Введите имя">
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_title">Введите E-mail</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите E-mail"
+                                                                        placeholder="Введите E-mail"></div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_title">Введите номер телефона</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите номер телефона"
+                                                                        placeholder="Введите номер телефона"></div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_input"><input type="submit" class="submit_btn surround"
+                                                                        data-action="thanks" data-url="" data-amount="0"
+                                                                        value="Отправить"
+                                                                        style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); "
+                                                                        onclick="openMessAndGetOfFormDataToMaile();">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="popup_form_text">Мы не передаем Вашу персональную информацию третьим лицам.
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col_3 last">
+                    <div class="image3 s200  radius      border   shadow  "><img
+                            src="img/200x200/3486fbd203c5720a1c8769dc6e9fdece.png" alt=""></div>
+
+
+                    <div class="title3">Зимняя сказка</div>
+                    <div class="txt3 ">Убранство усадьбы "Строгоновых-Галицыных" уже давно стала визитной карточкой
+                        этого места. Здесь можно покататься на финских санях, квадрациклах, летом поучиться конному
+                        спорту, ощутить прелести катания на лодке, провести свадьбу и торжество. Это замечательное
+                        место, где можно перед сном погулять и насладиться истинной красотой природы.
+                    </div>
+                    <div class="price3 ">≈ 2,5 км.</div>
+                    <div class="btn3 surround  "
+                         style="background-color:#AA0000;  border-radius: 0  30em  30em 30em;   box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); ">
+                        Узнать подробнее
+                    </div>
+
+
+                    <div class="popup_form">
+                        <div class="popup_form_inner">
+                            <div class="popup_form_close">X</div>
+                            <div class="popup_form_title">Оставить заявку</div>
+                            <form action="handler.php" enctype="multipart/form-data" method="post">
+                                <div class="form3"><input type="hidden" name="Название формы" value="">
+                                    <div class="field">
+                                        <div class="field_title">Введите имя</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите имя" placeholder="Введите имя">
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_title">Введите E-mail</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите E-mail"
+                                                                        placeholder="Введите E-mail"></div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_title">Введите номер телефона</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите номер телефона"
+                                                                        placeholder="Введите номер телефона"></div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_input"><input type="submit" class="submit_btn surround"
+                                                                        data-action="thanks" data-url="" data-amount="0"
+                                                                        value="Отправить"
+                                                                        style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); "
+                                                                        onclick="openMessAndGetOfFormDataToMaile();">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="popup_form_text">Мы не передаем Вашу персональную информацию третьим лицам.
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="clear"></div>
+                <div class="extra_info_block_wrapper">
+                    <div class="extra_info_block">
+                        <div class="close">Х</div>
+                        <div class="left"><img src="img/400x400/148e9b929fe2c9e51d76c2340275fbb9.jpg" alt="">
+
+                        </div>
+                        <div class="right">
+                            <div class="extra_info1"><span style="font-size:28px;">Название товара<br></span>Подробное
+                                описание продукта.<br>Здесь вы можете расписать:
+                                <ul>
+                                    <li>свойства товара,<br type="_moz"></li>
+                                    <li>параметры товара,<br type="_moz"></li>
+                                    <li>описание товара,</li>
+                                    <li>наличие на складе,</li>
+                                    <li>цвет,</li>
+                                    <li>количество.<br></li>
+                                </ul>
+                                <p>Напишите их тут. И будет у вас не просто сайт, а интернет-магазин. <br></p></div>
+
+                            <div class="btn1x surround " style="background-color:#AA0000; ">Узнать подробнее</div>
+                        </div>
+                        <div class="clear"></div>
+
+                    </div>
+                </div>
+                <div class="extra_info_block_wrapper">
+                    <div class="extra_info_block">
+                        <div class="close">Х</div>
+                        <div class="left"><img src="img/400x400/ca4c698a9d005fad315047107c1df30d.jpg" alt="">
+
+                        </div>
+                        <div class="right">
+                            <div class="extra_info2"><span style="font-size:28px;">Название товара<br></span>Подробное
+                                описание продукта.<br>Здесь вы можете расписать:
+                                <ul>
+                                    <li>свойства товара,<br type="_moz"></li>
+                                    <li>параметры товара,<br type="_moz"></li>
+                                    <li>описание товара,</li>
+                                    <li>наличие на складе,</li>
+                                    <li>цвет,</li>
+                                    <li>количество.<br></li>
+                                </ul>
+                                <p>Напишите их тут. И будет у вас не просто сайт, а интернет-магазин. <br></p></div>
+
+                            <div class="btn2x surround " style="background-color:#AA0000; ">Узнать подробнее</div>
+                        </div>
+                        <div class="clear"></div>
+
+                    </div>
+                </div>
+                <div class="extra_info_block_wrapper">
+                    <div class="extra_info_block">
+                        <div class="close">Х</div>
+                        <div class="left"><img src="img/400x400/3486fbd203c5720a1c8769dc6e9fdece.jpg" alt="">
+
+
+                        </div>
+                        <div class="right">
+                            <div class="extra_info3"><span style="font-size:28px;">Название товара<br></span>Подробное
+                                описание продукта.<br>Здесь вы можете расписать:
+                                <ul>
+                                    <li>свойства товара,<br type="_moz"></li>
+                                    <li>параметры товара,<br type="_moz"></li>
+                                    <li>описание товара,</li>
+                                    <li>наличие на складе,</li>
+                                    <li>цвет,</li>
+                                    <li>количество.<br></li>
+                                </ul>
+                                <p>Напишите их тут. И будет у вас не просто сайт, а интернет-магазин. <br></p></div>
+
+                            <div class="btn3x surround " style="background-color:#AA0000; ">Узнать подробнее</div>
+                        </div>
+                        <div class="clear"></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="popup_thanks">
+                <div class="popup_thanks_inner">
+                    <div class="popup_thanks_close">X</div>
+                    <div class="popup_thanks_title">Спасибо за заявку!</div>
+                    <div class="popup_thanks_text">Заявка отправлена. Наш менеджер свяжется с Вами в ближайшее время.
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="arr1">
+                <div class="col_3">
+                    <div class="image1 s200  radius     border   shadow  "><img
+                            src="img/200x200/37d1d6d1d8608657d0533e48c4d0c8bf.jpg" alt=""></div>
+
+
+                    <div class="title1">ФРУКТЫ И ЯГОДЫ</div>
+                    <div class="txt1 ">Обустройте на большом участке свой огород, побывайте в лесу, испытайте настоящий
+                        вкус природы!
+                    </div>
+                    <div class="price1 ">Абсолютно бесценно!</div>
+                    <div class="btn1 surround  "
+                         style="background-color:#AA0000;  border-radius: 0  30em  30em 30em;   box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); ">
+                        Узнать подробнее
+                    </div>
+
+
+                    <div class="popup_form">
+                        <div class="popup_form_inner">
+                            <div class="popup_form_close">X</div>
+                            <div class="popup_form_title">Оставить заявку</div>
+                            <form action="handler.php" enctype="multipart/form-data" method="post">
+                                <div class="form1"><input type="hidden" name="Название формы" value="">
+                                    <div class="field">
+                                        <div class="field_title">Введите имя</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите имя" placeholder="Введите имя">
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_title">Введите E-mail</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите E-mail"
+                                                                        placeholder="Введите E-mail"></div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_title">Введите номер телефона</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите номер телефона"
+                                                                        placeholder="Введите номер телефона"></div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_input"><input type="submit" class="submit_btn surround"
+                                                                        data-action="thanks" data-url="" data-amount="0"
+                                                                        value="Отправить"
+                                                                        style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); "
+                                                                        onclick="openMessAndGetOfFormDataToMaile();">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="popup_form_text">Мы не передаем Вашу персональную информацию третьим лицам.
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col_3">
+                    <div class="image2 s200  radius      border   shadow  "><img
+                            src="img/200x200/f109b49e914aa278a8a3fd4bcbe43b06.jpg" alt=""></div>
+
+
+                    <div class="title2">МОЛОКО И ЯЙЦА</div>
+                    <div class="txt2 ">Попробовать молоко и яйца буквально вот-вот отданные самой природой, чистым и
+                        естественным путём, без всякой химической обработки и добавок!
+                    </div>
+                    <div class="price2 ">≈ 60 руб./л.молока<br>≈ 12 руб./яйцо</div>
+                    <div class="btn2 surround  "
+                         style="background-color:#AA0000;  border-radius: 0  30em  30em 30em;   box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); ">
+                        Узнать подробнее
+                    </div>
+
+
+                    <div class="popup_form">
+                        <div class="popup_form_inner">
+                            <div class="popup_form_close">X</div>
+                            <div class="popup_form_title">Оставить заявку</div>
+                            <form action="handler.php" enctype="multipart/form-data" method="post">
+                                <div class="form2"><input type="hidden" name="Название формы" value="">
+                                    <div class="field">
+                                        <div class="field_title">Введите имя</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите имя" placeholder="Введите имя">
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_title">Введите E-mail</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите E-mail"
+                                                                        placeholder="Введите E-mail"></div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_title">Введите номер телефона</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите номер телефона"
+                                                                        placeholder="Введите номер телефона"></div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_input"><input type="submit" class="submit_btn surround"
+                                                                        data-action="thanks" data-url="" data-amount="0"
+                                                                        value="Отправить"
+                                                                        style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); "
+                                                                        onclick="openMessAndGetOfFormDataToMaile();">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="popup_form_text">Мы не передаем Вашу персональную информацию третьим лицам.
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col_3 last">
+                    <div class="image3 s200  radius      border   shadow  "><img
+                            src="img/200x200/ca4c698a9d005fad315047107c1df30d.jpg" alt=""></div>
+
+
+                    <div class="title3">Натуральные продукты</div>
+                    <div class="txt3 ">Свежая говядина с местной фермы. Доставляется в близь лежащий магазин. Большое
+                        разнообразие "живых продуктов".
+                    </div>
+                    <div class="price3 ">≈ 350 руб./кг за говядину</div>
+                    <div class="btn3 surround  "
+                         style="background-color:#AA0000;  border-radius: 0  30em  30em 30em;   box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); ">
+                        Узнать подробнее
+                    </div>
+
+
+                    <div class="popup_form">
+                        <div class="popup_form_inner">
+                            <div class="popup_form_close">X</div>
+                            <div class="popup_form_title">Оставить заявку</div>
+                            <form action="handler.php" enctype="multipart/form-data" method="post">
+                                <div class="form3"><input type="hidden" name="Название формы" value="">
+                                    <div class="field">
+                                        <div class="field_title">Введите имя</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите имя" placeholder="Введите имя">
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_title">Введите E-mail</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите E-mail"
+                                                                        placeholder="Введите E-mail"></div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_title">Введите номер телефона</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите номер телефона"
+                                                                        placeholder="Введите номер телефона"></div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_input"><input type="submit" class="submit_btn surround"
+                                                                        data-action="thanks" data-url="" data-amount="0"
+                                                                        value="Отправить"
+                                                                        style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); "
+                                                                        onclick="openMessAndGetOfFormDataToMaile();">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="popup_form_text">Мы не передаем Вашу персональную информацию третьим лицам.
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="clear"></div>
+                <div class="extra_info_block_wrapper">
+                    <div class="extra_info_block">
+                        <div class="close">Х</div>
+                        <div class="left"><img src="img/400x400/37d1d6d1d8608657d0533e48c4d0c8bf.jpg" alt="">
+
+                        </div>
+                        <div class="right">
+                            <div class="extra_info1"><span style="font-size:28px;">Название товара<br></span>Подробное
+                                описание продукта.<br>Здесь вы можете расписать:
+                                <ul>
+                                    <li>свойства товара,<br type="_moz"></li>
+                                    <li>параметры товара,<br type="_moz"></li>
+                                    <li>описание товара,</li>
+                                    <li>наличие на складе,</li>
+                                    <li>цвет,</li>
+                                    <li>количество.<br></li>
+                                </ul>
+                                <p>Напишите их тут. И будет у вас не просто сайт, а интернет-магазин. <br></p></div>
+
+                            <div class="btn1x surround " style="background-color:#AA0000; ">Узнать подробнее</div>
+                        </div>
+                        <div class="clear"></div>
+
+                    </div>
+                </div>
+                <div class="extra_info_block_wrapper">
+                    <div class="extra_info_block">
+                        <div class="close">Х</div>
+                        <div class="left"><img src="img/400x400/f109b49e914aa278a8a3fd4bcbe43b06.jpg" alt="">
+
+                        </div>
+                        <div class="right">
+                            <div class="extra_info2"><span style="font-size:28px;">Название товара<br></span>Подробное
+                                описание продукта.<br>Здесь вы можете расписать:
+                                <ul>
+                                    <li>свойства товара,<br type="_moz"></li>
+                                    <li>параметры товара,<br type="_moz"></li>
+                                    <li>описание товара,</li>
+                                    <li>наличие на складе,</li>
+                                    <li>цвет,</li>
+                                    <li>количество.<br></li>
+                                </ul>
+                                <p>Напишите их тут. И будет у вас не просто сайт, а интернет-магазин. <br></p></div>
+
+                            <div class="btn2x surround " style="background-color:#AA0000; ">Узнать подробнее</div>
+                        </div>
+                        <div class="clear"></div>
+
+                    </div>
+                </div>
+                <div class="extra_info_block_wrapper">
+                    <div class="extra_info_block">
+                        <div class="close">Х</div>
+                        <div class="left"><img src="img/400x400/8518f2a4143b22d87cd4772a69d55669.jpg" alt="">
+
+
+                        </div>
+                        <div class="right">
+                            <div class="extra_info3"><span style="font-size:28px;">Название товара<br></span>Подробное
+                                описание продукта.<br>Здесь вы можете расписать:
+                                <ul>
+                                    <li>свойства товара,<br type="_moz"></li>
+                                    <li>параметры товара,<br type="_moz"></li>
+                                    <li>описание товара,</li>
+                                    <li>наличие на складе,</li>
+                                    <li>цвет,</li>
+                                    <li>количество.<br></li>
+                                </ul>
+                                <p>Напишите их тут. И будет у вас не просто сайт, а интернет-магазин. <br></p></div>
+
+                            <div class="btn3x surround " style="background-color:#AA0000; ">Узнать подробнее</div>
+                        </div>
+                        <div class="clear"></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="popup_thanks">
+                <div class="popup_thanks_inner">
+                    <div class="popup_thanks_close">X</div>
+                    <div class="popup_thanks_title">Спасибо за заявку!</div>
+                    <div class="popup_thanks_text">Заявка отправлена. Наш менеджер свяжется с Вами в ближайшее время.
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="hide_line  section section149 mode_2  "
+         style="background-color:#ffffff;  background-image:url(img/null.png);" data-id="456889" id="b_456889"><a
+            name="a_456889"></a>
+
+    </div>
+    <div class="hide_line  section  transparent_ico section128  "
+         style="background-color:#ffffff;  background-image:url(img/null.png);" data-id="456878" id="b_456878"><a
+            name="a_456878"></a>
+
+        <div class="section_inner">
+            <div class="title  ">Оставьте отзыв по телефону или эл.почте</div>
+            <div class="sub_title  ">Нам важно ваше мнение <br>(опубликованы последние 3 мнения)</div>
+
+            <div class="arr1">
+                <div class="col_3">
+                    <div class="image1 s200    border   shadow  "><img
+                            src="img/200x200/3f50cfd0d6e78e5ba44b37d171d9599b.jpg" alt=""></div>
+
+
+                    <div class="title1">ВАЛЕРИЯ</div>
+                    <div class="txt1 ">Отличный сайт! Буду иметь в виду если захочу обосноваться в этом месте!</div>
+                    <div class="price1  hidden  ">2000 руб.</div>
+                    <div class=" hidden btn1 surround  "
+                         style="background-color:#AA0000;  border-radius: 0  30em  30em 30em;   box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); ">
+                        Узнать подробнее
+                    </div>
+
+
+                    <div class="popup_form">
+                        <div class="popup_form_inner">
+                            <div class="popup_form_close">X</div>
+                            <div class="popup_form_title">Оставить заявку</div>
+                            <form action="handler.php" enctype="multipart/form-data" method="post">
+                                <div class="form1"><input type="hidden" name="Название формы" value="">
+                                    <div class="field">
+                                        <div class="field_title">Введите имя</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите имя" placeholder="Введите имя">
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_title">Введите E-mail</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите E-mail"
+                                                                        placeholder="Введите E-mail"></div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_title">Введите номер телефона</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите номер телефона"
+                                                                        placeholder="Введите номер телефона"></div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_input"><input type="submit" class="submit_btn surround"
+                                                                        data-action="thanks" data-url="" data-amount="0"
+                                                                        value="Отправить"
+                                                                        style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); "
+                                                                        onclick="openMessAndGetOfFormDataToMaile();">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="popup_form_text">Мы не передаем Вашу персональную информацию третьим лицам.
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col_3">
+                    <div class="image2 s200     border   shadow  "><img
+                            src="img/200x200/2f39a9de28fb3b5975f1e84480c5b968.jpg" alt=""></div>
+
+
+                    <div class="title2">ОЛЬГА</div>
+                    <div class="txt2 ">Понравилось описание, сразу захотела поехать туда жить))</div>
+                    <div class="price2  hidden  ">2000 руб.</div>
+                    <div class=" hidden btn2 surround  "
+                         style="background-color:#AA0000;  border-radius: 0  30em  30em 30em;   box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); ">
+                        Узнать подробнее
+                    </div>
+
+
+                    <div class="popup_form">
+                        <div class="popup_form_inner">
+                            <div class="popup_form_close">X</div>
+                            <div class="popup_form_title">Оставить заявку</div>
+                            <form action="handler.php" enctype="multipart/form-data" method="post">
+                                <div class="form2"><input type="hidden" name="Название формы" value="">
+                                    <div class="field">
+                                        <div class="field_title">Введите имя</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите имя" placeholder="Введите имя">
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_title">Введите E-mail</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите E-mail"
+                                                                        placeholder="Введите E-mail"></div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_title">Введите номер телефона</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите номер телефона"
+                                                                        placeholder="Введите номер телефона"></div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_input"><input type="submit" class="submit_btn surround"
+                                                                        data-action="thanks" data-url="" data-amount="0"
+                                                                        value="Отправить"
+                                                                        style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); "
+                                                                        onclick="openMessAndGetOfFormDataToMaile();">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="popup_form_text">Мы не передаем Вашу персональную информацию третьим лицам.
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col_3 last">
+                    <div class="image3 s200     border   shadow  "><img
+                            src="img/200x200/bbe959df952c14c77be9f62196731e7f.jpg" alt=""></div>
+
+
+                    <div class="title3">АННА</div>
+                    <div class="txt3 ">Блин, хочу загород покушать шашлычка, и в лес!!!</div>
+                    <div class="price3  hidden  ">2000 руб.</div>
+                    <div class=" hidden btn3 surround  "
+                         style="background-color:#AA0000;  border-radius: 0  30em  30em 30em;   box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); ">
+                        Узнать подробнее
+                    </div>
+
+
+                    <div class="popup_form">
+                        <div class="popup_form_inner">
+                            <div class="popup_form_close">X</div>
+                            <div class="popup_form_title">Оставить заявку</div>
+                            <form action="handler.php" enctype="multipart/form-data" method="post">
+                                <div class="form3"><input type="hidden" name="Название формы" value="">
+                                    <div class="field">
+                                        <div class="field_title">Введите имя</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите имя" placeholder="Введите имя">
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_title">Введите E-mail</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите E-mail"
+                                                                        placeholder="Введите E-mail"></div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_title">Введите номер телефона</div>
+                                        <div class="field_description"></div>
+                                        <div class="field_input"><input type="text" required="required"
+                                                                        name="Введите номер телефона"
+                                                                        placeholder="Введите номер телефона"></div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field_input"><input type="submit" class="submit_btn surround"
+                                                                        data-action="thanks" data-url="" data-amount="0"
+                                                                        value="Отправить"
+                                                                        style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); "
+                                                                        onclick="openMessAndGetOfFormDataToMaile();">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="popup_form_text">Мы не передаем Вашу персональную информацию третьим лицам.
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="clear"></div>
+                <div class="extra_info_block_wrapper">
+                    <div class="extra_info_block">
+                        <div class="close">Х</div>
+                        <div class="left"><img src="img/400x400/3f50cfd0d6e78e5ba44b37d171d9599b.jpg" alt="">
+
+                        </div>
+                        <div class="right">
+                            <div class="extra_info1"><span style="font-size:28px;">Название товара<br></span>Подробное
+                                описание продукта.<br>Здесь вы можете расписать:
+                                <ul>
+                                    <li>свойства товара,<br type="_moz"></li>
+                                    <li>параметры товара,<br type="_moz"></li>
+                                    <li>описание товара,</li>
+                                    <li>наличие на складе,</li>
+                                    <li>цвет,</li>
+                                    <li>количество.<br></li>
+                                </ul>
+                                <p>Напишите их тут. И будет у вас не просто сайт, а интернет-магазин. <br></p></div>
+
+                            <div class="btn1x surround " style="background-color:#AA0000; ">Узнать подробнее</div>
+                        </div>
+                        <div class="clear"></div>
+
+                    </div>
+                </div>
+                <div class="extra_info_block_wrapper">
+                    <div class="extra_info_block">
+                        <div class="close">Х</div>
+                        <div class="left"><img src="img/400x400/2f39a9de28fb3b5975f1e84480c5b968.jpg" alt="">
+
+                        </div>
+                        <div class="right">
+                            <div class="extra_info2"><span style="font-size:28px;">Название товара<br></span>Подробное
+                                описание продукта.<br>Здесь вы можете расписать:
+                                <ul>
+                                    <li>свойства товара,<br type="_moz"></li>
+                                    <li>параметры товара,<br type="_moz"></li>
+                                    <li>описание товара,</li>
+                                    <li>наличие на складе,</li>
+                                    <li>цвет,</li>
+                                    <li>количество.<br></li>
+                                </ul>
+                                <p>Напишите их тут. И будет у вас не просто сайт, а интернет-магазин. <br></p></div>
+
+                            <div class="btn2x surround " style="background-color:#AA0000; ">Узнать подробнее</div>
+                        </div>
+                        <div class="clear"></div>
+
+                    </div>
+                </div>
+                <div class="extra_info_block_wrapper">
+                    <div class="extra_info_block">
+                        <div class="close">Х</div>
+                        <div class="left"><img src="img/400x400/bbe959df952c14c77be9f62196731e7f.jpg" alt="">
+
+
+                        </div>
+                        <div class="right">
+                            <div class="extra_info3"><span style="font-size:28px;">Название товара<br></span>Подробное
+                                описание продукта.<br>Здесь вы можете расписать:
+                                <ul>
+                                    <li>свойства товара,<br type="_moz"></li>
+                                    <li>параметры товара,<br type="_moz"></li>
+                                    <li>описание товара,</li>
+                                    <li>наличие на складе,</li>
+                                    <li>цвет,</li>
+                                    <li>количество.<br></li>
+                                </ul>
+                                <p>Напишите их тут. И будет у вас не просто сайт, а интернет-магазин. <br></p></div>
+
+                            <div class="btn3x surround " style="background-color:#AA0000; ">Узнать подробнее</div>
+                        </div>
+                        <div class="clear"></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="popup_thanks">
+                <div class="popup_thanks_inner">
+                    <div class="popup_thanks_close">X</div>
+                    <div class="popup_thanks_title">Спасибо за заявку!</div>
+                    <div class="popup_thanks_text">Заявка отправлена. Наш менеджер свяжется с Вами в ближайшее время.
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="section section153   " style="background-color:#ffffff; background-image:url(img/1920x0/image_54.jpg);"
+         data-id="456876" id="b_456876"><a name="a_456876"></a>
+
+        <div class="dark"></div>
+        <div class="noise" style="background-image:url(img/null.png);"></div>
+        <div class="section_inner  big   ">
+            <div class="title  ">Контакты:</div>
+
+
+            <div class="sub_title  ">Адрес: г.СПБ, Лен. обл., Тосненский р-н, <br>д.Тарасово, ул.12-ая линия,
+                д.114<br><br>Телефон: 8 (921) 447-07-79<br>Электронный адрес: 2614462@mail.ru<br><br>Удобное время для
+                связи: с 10:00 до 19:00 (пн-вс)
+            </div>
+
+
+            <div class="popup_form">
+                <div class="popup_form_inner">
+                    <div class="popup_form_close">X</div>
+                    <div class="popup_form_title">Оставить заявку</div>
+                    <form action="handler.php" enctype="multipart/form-data" method="post">
+                        <div class="form1"><input type="hidden" name="Название формы" value="">
+                            <div class="field">
+                                <div class="field_title">Введите имя</div>
+                                <div class="field_description"></div>
+                                <div class="field_input"><input type="text" required="required" name="Введите имя"
+                                                                placeholder="Введите имя"></div>
+                            </div>
+                            <div class="field">
+                                <div class="field_title">Введите E-mail</div>
+                                <div class="field_description"></div>
+                                <div class="field_input"><input type="text" required="required" name="Введите E-mail"
+                                                                placeholder="Введите E-mail"></div>
+                            </div>
+                            <div class="field">
+                                <div class="field_title">Введите номер телефона</div>
+                                <div class="field_description"></div>
+                                <div class="field_input"><input type="text" required="required"
+                                                                name="Введите номер телефона"
+                                                                placeholder="Введите номер телефона"></div>
+                            </div>
+                            <div class="field">
+                                <div class="field_input"><input type="submit" class="submit_btn surround"
+                                                                data-action="thanks" data-url="" data-amount="0"
+                                                                value="Заказать"
+                                                                style="background-color:#AA0000;    border-radius: 0  30em  30em 30em; ;  box-shadow: 0 0.3em 0.3em 0px rgba(0,0,0,0.4); "
+                                                                onclick="openMessAndGetOfFormDataToMaile();"></div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="popup_form_text">Мы не передаем Вашу персональную информацию третьим лицам.</div>
+                </div>
+            </div>
+
+
+            <div class="popup_thanks">
+                <div class="popup_thanks_inner">
+                    <div class="popup_thanks_close">X</div>
+                    <div class="popup_thanks_title">Спасибо за заявку!</div>
+                    <div class="popup_thanks_text">Заявка отправлена. Наш менеджер свяжется с Вами в ближайшее время.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="map_inner"></div>
+</div>
+<div class="text   hidden  ">контактная иформация</div>
+</div>
+<div class="hide_line section section119 " style="background-color:#ffffff;  background-image:url(img/null.png);"
+     data-id="456874" id="b_456874">
+
+    <script type="text/javascript" charset="utf-8" async
+            src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A74c32a1625b4c7bd51d669743f6b6175b775eb5280c323c08272f84d1563d158&amp;width=100%25&amp;height=434&amp;lang=ru_RU&amp;scroll=true"></script>
+
+    <br>
+
+
+    <div class="section_inner">
+
+
+        <div class="logo_img"><img width="100%;" src="img/200x0/default_logo.png" src="img/200x0/default_logo.png"
+                                   alt=""></div>
+
+
+        <div class="address-and-ua">
+            <div class="address1">Сайт произведен в ознакомительных целях и не является публичной офертой.</div>
+            <div class="policy2 ">Политика конфиденциальности</div>
+        </div>
+        <div class="phone-and-address">
+            <div class="phone1">8 (921) 447-07-79</div>
+            <div class="text1">Звонок по интерисующим вопросам</div>
+            <a target="_blank" href="http://tobiz.net/" class="tobiz_link ">Сделано на платформе TOBIZ.NET</a>
+        </div>
+        <div class="clear"></div>
+        <div class="policy2_popup">
+            <div class="policy2_title">Политика конфиденциальности</div>
+            <div class="policy2_body"><p>Данный сайт уважает Ваше право и соблюдает конфиденциальность при заполнении,
+                передаче и хранении Ваших конфиденциальных сведений.<br>Размещение заявки на данном сайте означает Ваше
+                согласие на обработку данных и дальнейшей передачи ваших контактных данных нашей компании.<br>Под
+                персональными данными подразумевается информация, относящаяся к субъекту персональных данных, в
+                частности имя, контактные реквизиты (адрес электронной почты) и иные данные, относимые Федеральным
+                законом от 27 июля 2006 года № 152-ФЗ «О персональных данных» к категории персональных данных.<br>Целью
+                обработки персональных данных является информирование и помощь в осуществлении сделки с продажей земли.
+            </p></div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (m, e, t, r, i, k, a) {
+        m[i] = m[i] || function () {
+            (m[i].a = m[i].a || []).push(arguments)
+        };
+        m[i].l = 1 * new Date();
+        k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+    })
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(55934779, "init", {
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true,
+        webvisor: true
+    });
+</script>
+<noscript>
+    <div><img src="https://mc.yandex.ru/watch/55934779" style="position:absolute; left:-9999px;" alt=""/></div>
+</noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+</body>
+</html>
 <!-- Localized -->
